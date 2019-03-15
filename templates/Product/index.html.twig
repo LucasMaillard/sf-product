@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Product list</h1>
+    <p class="text-right">
+        <a class="btn btn-sm btn-success"
+            href="{{ path('product_create') }}">
+            New Product
+        </a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>designation</th>
+            <th>reference</th>
+            <th>brand</th>
+            <th>price</th>
+            <th>stock</th>!
+            <th>active</th>
+            <th>description</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td><a href="{{ path('product_read',{'id': product.id}) }}">{{ product.designation }}</td>
+            <td>{{ product.reference }}</td>
+            <td>{{ product.brand }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+                        <td>
+                {% if product.active %}
+                    <span class="badge badge-success">Oui</span>
+                {% else %}
+                    <span class="badge badge-danger">Non</span>
+                {% endif %}
+            </td>
+            <td>{{ product.description }}</td>
+            <td>
+                <a class="btn btn-sm btn-warning"
+                    href="{{ path('product_update', {'id': product.id}) }}">
+                    Change
+                </a>
+                <a class="btn btn-sm btn-danger"
+                    href="{{ path('product_delete', {'id': product.id}) }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">
+                No product registered
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
